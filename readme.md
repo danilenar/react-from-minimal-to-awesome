@@ -13,3 +13,9 @@ But, in order to get a deeper background on these tools, and what did we actuall
 - ***Webpack***: Check first the [concepts page](https://webpack.js.org/concepts) and don't miss the definitions of [mode](https://webpack.js.org/concepts/#mode), [entry](https://webpack.js.org/concepts/#entry), [output](https://webpack.js.org/concepts/#output) and [loaders](https://webpack.js.org/concepts/#loaders).
 
 - ***Babel***: Check [What is Babel?](https://babeljs.io/docs/en/) and [Usage Guide](https://babeljs.io/docs/en/usage). Then make sure you understand the concepts of [plugins](https://babeljs.io/docs/en/plugins) and [presets](https://babeljs.io/docs/en/presets)
+
+You will see the result code from this step by doing:
+
+```shell
+git checkout step-1
+```
