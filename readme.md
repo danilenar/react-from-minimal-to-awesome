@@ -1,6 +1,6 @@
 # ReactJs from minimal project to awesome
 
-The goal of this project is to offer a path to follow in order to configurate a React app using the lastest technologies, but in order to have in control the adition of each one of them. Surges from an own inconvenience, I needed to create a React App using several technologies an no boilerplate offers this combination. My first attempt was to get a boilerplate, such as create-react-app, and try to add the missing technologies to the stack. Of course it ends up in a complete mess, but also gave me a good lesson. I needed to lear how to setup my own, customized project. No boilerplates allowed. :no_entry:
+The goal of this project is to offer a path to follow in order to start a React app using the lastest nice-to-have technologies, but also gaining control over each one of these tools, by understanding their configuration. It arose from an own inconvenience, I wanted to create a React app using several technologies I couldn't find a boilerplate that offered this particular stack. My first attempt was taking a boilerplate, anyone looking similar to what I needed, such as Create-React-app, and trying to add the lacking technologies to the stack. Of course it ended up in a complete mess, but it also gave me a good lesson. I needed to learn how to setup my own, customized project. No boilerplates allowed. :no_entry:
 
 ## First step: Minimal project
 
@@ -19,3 +19,58 @@ You will see the result code from this step by doing:
 ```shell
 git checkout step-1
 ```
+
+## Step 2: Adding test support
+
+Test an aplication is a fundamental part of every project. Personally, I strongly disagree with those who think that certain testing code is just unnecesary. Even when it's testing the obvious, this code is forcing to think twice every change you made on your app.
+
+In this section we will add minimal testing support with [Jest snapshots](https://jestjs.io/docs/es-ES/snapshot-testing). This will not be the only type of test we will add, but looks like the only thing we can do with such a minimal code to test.
+
+First step is to add the dependencies needed those are:
+
+```
+npm i --dev jest babel-jest @babel/preset-env @babel/preset-react react-test-renderer
+
+```
+
+Second, we are going to test the only component we already have on our app. This is the code to add:
+
+```jsx
+import React from 'react'
+import HelloWorld from '../src/hello-world'
+import renderer from 'react-test-renderer'
+
+test('HelloWorld match snapshot', () => {
+    const component = renderer.create( 
+        < HelloWorld/>
+    )
+    let tree = component.toJSON()
+    expect(tree).toMatchSnapshot()
+})
+```
+
+Lastly, I don't really like extra long names. To avoid name the tests folder `___Tests___` (default Jest config) I took a look to the [custom configs docs](https://jestjs.io/docs/en/configuration#testmatch-arraystring) and added the following code to [`jest.config.js`](jest.config.js):
+
+```js
+const {
+    defaults
+} = require('jest-config')
+
+module.exports = {
+   testMatch: ['**/test/**/*.[jt]s?(x)']
+}
+```
+
+As an extra, we are already inducted on how to add custom configs to Jest tests.
+
+We also need to add a test command on [`package.json`](package.json), this will be:
+
+```
+  "scripts": {
+    "start": "webpack-dev-server --mode development --open --hot",
+    "test": "jest" // < add test command.
+  }
+```
+
+Running this will produce this [`hello-world.js`](test/__snapshots__/hello-world.js.snap) file as output. Every file on this snapshots folder needs to be under git version control.
+
